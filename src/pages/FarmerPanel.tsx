@@ -23,7 +23,8 @@ import {
   Package, 
   Search, 
   Filter,
-  Image as ImageIcon
+  Image as ImageIcon,
+  MapPin
 } from "lucide-react";
 
 // Mock data for vegetables
