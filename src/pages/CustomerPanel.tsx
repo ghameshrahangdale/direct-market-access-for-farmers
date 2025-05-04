@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -304,7 +303,7 @@ const CustomerPanel = () => {
                       <div className="p-4">
                         <div className="flex justify-between">
                           <h3 className="text-lg font-bold text-farm-green">{veg.name}</h3>
-                          <span className="font-bold">${veg.price}</span>
+                          <span className="font-bold">₹{veg.price}</span>
                         </div>
                         <p className="text-sm text-muted-foreground">Per {veg.quantity}</p>
                         
@@ -358,7 +357,7 @@ const CustomerPanel = () => {
                               <div className="font-medium">{item.name}</div>
                               <div className="text-sm text-muted-foreground">Unit: {item.quantity}</div>
                             </td>
-                            <td className="py-4 px-4">${item.price.toFixed(2)}</td>
+                            <td className="py-4 px-4">₹{item.price.toFixed(2)}</td>
                             <td className="py-4 px-4">
                               <div className="flex items-center space-x-2">
                                 <button 
@@ -392,7 +391,7 @@ const CustomerPanel = () => {
                                 </button>
                               </div>
                             </td>
-                            <td className="py-4 px-4 font-medium">${(item.price * item.count).toFixed(2)}</td>
+                            <td className="py-4 px-4 font-medium">₹{(item.price * item.count).toFixed(2)}</td>
                             <td className="py-4 px-4">
                               <button 
                                 className="text-red-500 hover:text-red-700"
@@ -408,7 +407,7 @@ const CustomerPanel = () => {
                         <tr className="bg-muted/30">
                           <td colSpan={3} className="py-3 px-4 text-right font-semibold">Total:</td>
                           <td colSpan={2} className="py-3 px-4 font-bold">
-                            ${cart.reduce((sum, item) => sum + (item.price * item.count), 0).toFixed(2)}
+                            ₹{cart.reduce((sum, item) => sum + (item.price * item.count), 0).toFixed(2)}
                           </td>
                         </tr>
                       </tfoot>
@@ -476,14 +475,14 @@ const CustomerPanel = () => {
                           <span>
                             {item.name} ({item.quantity})
                           </span>
-                          <span className="font-medium">${item.price.toFixed(2)}</span>
+                          <span className="font-medium">₹{item.price.toFixed(2)}</span>
                         </div>
                       ))}
                     </div>
                     
                     <div className="border-t border-muted pt-3 flex justify-between">
                       <span className="font-semibold">Total</span>
-                      <span className="font-semibold">${order.total.toFixed(2)}</span>
+                      <span className="font-semibold">₹{order.total.toFixed(2)}</span>
                     </div>
                     
                     {order.status === "delivered" && (

@@ -28,9 +28,9 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
               <span className="h-8 w-8 bg-farm-gradient rounded-full flex items-center justify-center">
-                <span className="text-white font-bold">FM</span>
+                <span className="text-white font-bold">DM</span>
               </span>
-              <span className="font-bold text-xl text-farm-green">FarmMarket</span>
+              <span className="font-bold text-xl text-farm-green">DMAF</span>
             </Link>
           </div>
 

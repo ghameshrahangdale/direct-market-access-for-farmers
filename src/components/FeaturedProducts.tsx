@@ -159,7 +159,7 @@ const FeaturedProducts = () => {
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <div>
-                    <span className="font-bold text-lg text-farm-green">${product.price.toFixed(2)}</span>
+                    <span className="font-bold text-lg text-farm-green">₹{product.price.toFixed(2)}</span>
                     <span className="text-xs text-muted-foreground ml-1">/ {product.unit}</span>
                   </div>
                   <Button size="sm" className="bg-farm-green text-white hover:bg-farm-green/90 h-9 w-9 p-0">

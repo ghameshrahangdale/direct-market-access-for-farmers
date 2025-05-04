@@ -21,9 +21,9 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <span className="h-8 w-8 bg-white rounded-full flex items-center justify-center mr-2">
-                <span className="text-farm-green font-bold">FM</span>
+                <span className="text-farm-green font-bold">DM</span>
               </span>
-              <span className="font-bold text-xl">FarmMarket</span>
+              <span className="font-bold text-xl">DMAF</span>
             </div>
             <p className="text-farm-lime mb-6">
               Connecting local farmers with customers for fresher, healthier produce and stronger communities.
@@ -39,7 +39,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Mail className="h-4 w-4 mr-2 text-farm-lime" />
-                <span className="text-sm">contact@farmmarket.com</span>
+                <span className="text-sm">contact@dmaf.com</span>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-farm-lime/20 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-farm-lime/80 mb-4 md:mb-0">© 2025 FarmMarket. All rights reserved.</p>
+          <p className="text-sm text-farm-lime/80 mb-4 md:mb-0">© 2025 DMAF. All rights reserved.</p>
           <div className="flex space-x-4">
             <a href="#" className="text-sm text-farm-lime/80 hover:text-farm-lime transition-colors">Privacy</a>
             <a href="#" className="text-sm text-farm-lime/80 hover:text-farm-lime transition-colors">Terms</a>
