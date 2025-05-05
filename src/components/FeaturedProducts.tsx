@@ -2,6 +2,8 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, ShoppingCart, Heart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { formatCurrency } from "@/lib/utils";
 
 type Product = {
   id: number;
@@ -80,6 +82,7 @@ const products: Product[] = [
 
 const FeaturedProducts = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { addToCart } = useCart();
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -92,6 +95,17 @@ const FeaturedProducts = () => {
         current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       }
     }
+  };
+
+  const handleAddToCart = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      unit: product.unit,
+      farmerName: product.farmerName
+    });
   };
 
   return (
@@ -159,10 +173,14 @@ const FeaturedProducts = () => {
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <div>
-                    <span className="font-bold text-lg text-farm-green">₹{product.price.toFixed(2)}</span>
+                    <span className="font-bold text-lg text-farm-green">{formatCurrency(product.price)}</span>
                     <span className="text-xs text-muted-foreground ml-1">/ {product.unit}</span>
                   </div>
-                  <Button size="sm" className="bg-farm-green text-white hover:bg-farm-green/90 h-9 w-9 p-0">
+                  <Button 
+                    size="sm" 
+                    className="bg-farm-green text-white hover:bg-farm-green/90 h-9 w-9 p-0"
+                    onClick={() => handleAddToCart(product)}
+                  >
                     <ShoppingCart className="h-4 w-4" />
                   </Button>
                 </div>

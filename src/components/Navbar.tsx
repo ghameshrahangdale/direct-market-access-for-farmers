@@ -8,13 +8,15 @@ import {
   User, 
   Menu, 
   X,
-  MapPin,
   Search
 } from 'lucide-react';
+import LocationSelector from './LocationSelector';
+import { useCart } from '@/contexts/CartContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [location, setLocation] = useState('Select Location');
+  const { toggleCart, items } = useCart();
+  const itemCount = items.reduce((count, item) => count + item.quantity, 0);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -36,8 +38,7 @@ const Navbar = () => {
 
           {/* Location Selector */}
           <div className="hidden md:flex items-center bg-muted px-3 py-1.5 rounded-full text-sm">
-            <MapPin className="h-4 w-4 text-farm-green mr-1.5" />
-            <span>{location}</span>
+            <LocationSelector />
           </div>
 
           {/* Search */}
@@ -56,13 +57,20 @@ const Navbar = () => {
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center space-x-2">
-            <Button variant="ghost" size="sm" className="text-farm-green">
-              <Home className="h-4 w-4 mr-2" />
-              Home
+            <Button variant="ghost" size="sm" className="text-farm-green" asChild>
+              <Link to="/">
+                <Home className="h-4 w-4 mr-2" />
+                Home
+              </Link>
             </Button>
-            <Button variant="ghost" size="sm" className="text-farm-green">
+            <Button variant="ghost" size="sm" className="text-farm-green" onClick={toggleCart}>
               <ShoppingCart className="h-4 w-4 mr-2" />
               Cart
+              {itemCount > 0 && (
+                <span className="ml-1 bg-farm-orange text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
             </Button>
             <Button variant="outline" size="sm" className="border-farm-green text-farm-green hover:bg-farm-green hover:text-white">
               <User className="h-4 w-4 mr-2" />
@@ -90,8 +98,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white pt-2 pb-4 px-4 shadow-lg animate-fade-in">
           <div className="flex items-center bg-muted px-3 py-2 rounded-full text-sm mb-4">
-            <MapPin className="h-4 w-4 text-farm-green mr-1.5" />
-            <span>{location}</span>
+            <LocationSelector />
           </div>
           
           <div className="relative mb-4">
@@ -106,13 +113,27 @@ const Navbar = () => {
           </div>
           
           <div className="space-y-2">
-            <Button variant="ghost" size="sm" className="text-farm-green w-full justify-start">
-              <Home className="h-4 w-4 mr-2" />
-              Home
+            <Button variant="ghost" size="sm" className="text-farm-green w-full justify-start" asChild>
+              <Link to="/">
+                <Home className="h-4 w-4 mr-2" />
+                Home
+              </Link>
             </Button>
-            <Button variant="ghost" size="sm" className="text-farm-green w-full justify-start">
-              <ShoppingCart className="h-4 w-4 mr-2" />
-              Cart
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-farm-green w-full justify-between"
+              onClick={toggleCart}
+            >
+              <div className="flex items-center">
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Cart
+              </div>
+              {itemCount > 0 && (
+                <span className="bg-farm-orange text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
             </Button>
             <Button variant="outline" size="sm" className="border-farm-green text-farm-green hover:bg-farm-green hover:text-white w-full justify-start">
               <User className="h-4 w-4 mr-2" />
