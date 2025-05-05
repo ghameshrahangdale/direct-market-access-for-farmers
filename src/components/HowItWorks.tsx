@@ -27,33 +27,35 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="py-16">
+    <section className="py-16 bg-farm-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="section-title">How It Works</h2>
-          <p className="section-subtitle">
-            A simple process to connect you with local farmers and fresh produce
+          <h2 className="text-3xl md:text-4xl font-bold text-farm-green mb-3">How DMAF Works</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            A simple process connecting you with local farmers for the freshest produce
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <div key={index} className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-full bg-farm-lime flex items-center justify-center mb-4">
-                <step.icon className="h-7 w-7 text-farm-green" />
+            <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
+              <div className="flex justify-center">
+                <div className="w-16 h-16 rounded-full bg-farm-lime flex items-center justify-center mb-6 relative">
+                  <step.icon className="h-7 w-7 text-farm-green" />
+                  <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-farm-green text-white flex items-center justify-center font-bold">
+                    {index + 1}
+                  </div>
+                </div>
               </div>
-              <div className="relative">
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-farm-lime -z-10"></div>
-                )}
-                <h3 className="text-xl font-bold text-farm-green mb-2">{step.title}</h3>
+              <div className="text-center">
+                <h3 className="text-xl font-bold text-farm-green mb-3">{step.title}</h3>
                 <p className="text-muted-foreground">{step.description}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-16 bg-farm-light-green rounded-xl p-8 text-center">
           <h3 className="text-2xl font-bold text-farm-green mb-3">Ready to get started?</h3>
           <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
             Join thousands of happy customers and farmers on our platform

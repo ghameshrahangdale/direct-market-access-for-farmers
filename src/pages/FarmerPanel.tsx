@@ -12,6 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useToast } from "@/hooks/use-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { 
@@ -23,8 +24,11 @@ import {
   Package, 
   Search, 
   Filter,
-  Image as ImageIcon,
-  MapPin
+  ImageIcon,
+  MapPin,
+  Trash2,
+  ChevronDown,
+  Activity
 } from "lucide-react";
 
 // Mock data for vegetables
@@ -104,7 +108,9 @@ const mockRequests = [
 ];
 
 const FarmerPanel = () => {
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("inventory");
+  const [vegetables, setVegetables] = useState(mockVegetables);
   const [newVegetable, setNewVegetable] = useState({
     name: "",
     price: "",
@@ -122,7 +128,30 @@ const FarmerPanel = () => {
   
   const handleNewVegetableSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Adding new vegetable:", newVegetable);
+    
+    // Create a new vegetable object
+    const vegImage = newVegetable.image 
+      ? URL.createObjectURL(newVegetable.image)
+      : "https://images.unsplash.com/photo-1542223189-67a03fa0f0bd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3";
+    
+    const newVeg = {
+      id: Date.now(),
+      name: newVegetable.name,
+      price: parseFloat(newVegetable.price),
+      quantity: newVegetable.quantity,
+      available: newVegetable.available,
+      image: vegImage
+    };
+    
+    // Add to vegetables array
+    setVegetables([...vegetables, newVeg]);
+    
+    // Show success message
+    toast({
+      title: "Vegetable Added",
+      description: `${newVegetable.name} has been added to your inventory.`,
+    });
+    
     // Reset form after submission
     setNewVegetable({
       name: "",
@@ -134,14 +163,61 @@ const FarmerPanel = () => {
     });
   };
 
+  const handleRemoveVegetable = (id: number) => {
+    // Find vegetable name before removing
+    const vegToRemove = vegetables.find(veg => veg.id === id);
+    
+    // Remove vegetable from array
+    setVegetables(vegetables.filter(veg => veg.id !== id));
+    
+    // Show success message
+    if (vegToRemove) {
+      toast({
+        title: "Vegetable Removed",
+        description: `${vegToRemove.name} has been removed from your inventory.`,
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <div className="bg-farm-gradient py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-white">Farmer Dashboard</h1>
-          <p className="text-white/80">Manage your produce and orders</p>
+      {/* Updated Farmer Dashboard Header */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div className="mb-4 md:mb-0">
+              <h1 className="text-3xl font-bold text-farm-green">Farmer Dashboard</h1>
+              <div className="flex items-center mt-2">
+                <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                <p className="text-muted-foreground text-sm">Active · Last updated 2 minutes ago</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex items-center bg-muted rounded-lg px-4 py-2">
+                <Activity className="h-5 w-5 text-farm-green mr-2" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Total Sales</p>
+                  <p className="font-bold">₹12,450</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center bg-muted rounded-lg px-4 py-2">
+                <Package className="h-5 w-5 text-farm-green mr-2" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Active Orders</p>
+                  <p className="font-bold">8</p>
+                </div>
+              </div>
+              
+              <Button className="bg-farm-green hover:bg-farm-green/90">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Product
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -308,31 +384,38 @@ const FarmerPanel = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {mockVegetables.map((veg) => (
+                {vegetables.map((veg) => (
                   <div key={veg.id} className="farm-card">
                     <div 
-                      className="h-48 bg-cover bg-center" 
+                      className="h-48 bg-cover bg-center relative" 
                       style={{ backgroundImage: `url(${veg.image})` }}
                     >
-                      <div className="flex justify-end p-3">
+                      <div className="absolute top-0 right-0 p-3">
                         <span className={`px-2 py-1 rounded-full text-xs font-semibold ${veg.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                           {veg.available ? 'Available' : 'Out of Stock'}
                         </span>
                       </div>
+                      <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3">
+                        <h3 className="text-lg font-bold text-white">{veg.name}</h3>
+                      </div>
                     </div>
                     <div className="p-4">
-                      <h3 className="text-lg font-bold text-farm-green">{veg.name}</h3>
                       <div className="flex justify-between items-center mt-2">
                         <div>
-                          <span className="text-lg font-semibold">${veg.price}</span>
+                          <span className="text-lg font-semibold">₹{veg.price}</span>
                           <span className="text-sm text-muted-foreground ml-1">/ {veg.quantity}</span>
                         </div>
                         <div className="flex space-x-2">
                           <Button variant="outline" size="sm" className="h-8 w-8 p-0">
                             <ImageIcon className="h-4 w-4" />
                           </Button>
-                          <Button variant="outline" size="sm" className="h-8 w-8 p-0">
-                            <Plus className="h-4 w-4" />
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="h-8 w-8 p-0 text-red-500 hover:bg-red-50"
+                            onClick={() => handleRemoveVegetable(veg.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>
