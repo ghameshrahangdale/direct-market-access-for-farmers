@@ -1,10 +1,12 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, User, Mail, Lock, Phone, MapPin } from "lucide-react";
+import { notification } from "antd"; // Import Ant Design notification
+
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -17,15 +19,39 @@ const Signup = () => {
     userType: "customer", // default to customer
   });
 
+  const navigate = useNavigate(); // Hook for navigation
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Sign up logic will be implemented later
-    console.log("Signup attempt with:", formData);
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Signup failed");
+
+      // Show success notification
+      notification.success({
+        message: "Registration Successful",
+        description: "You have successfully registered. Redirecting to login page...",
+        duration: 2, // duration in seconds
+        onClose: () => navigate("/login"), // Redirect to login page after notification closes
+      });
+    } catch (error) {
+      // Show error notification
+      notification.error({
+        message: "Registration Failed",
+        description: error.message || "An error occurred while registering. Please try again.",
+      });
+    }
   };
 
   return (

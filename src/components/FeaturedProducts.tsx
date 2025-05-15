@@ -20,65 +20,67 @@ type Product = {
 const products: Product[] = [
   {
     id: 1,
-    name: "Fresh Organic Spinach",
-    price: 3.99,
+    name: "Taza Palak (Spinach)",
+    price: 25, // ₹25 per bunch
     unit: "bunch",
     farmerName: "Green Valley Farm",
-    location: "2.4 miles away",
+    location: "2.4 km दूर",
     image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&q=80&w=300&h=300",
     tag: "Organic",
     tagColor: "bg-farm-light-green text-white"
   },
   {
     id: 2,
-    name: "Heirloom Tomatoes",
-    price: 4.50,
-    unit: "lb",
+    name: "Desi Tamatar (Tomatoes)",
+    price: 30, // ₹30 per kg
+    unit: "kg",
     farmerName: "Sunset Orchards",
-    location: "5.1 miles away",
+    location: "5.1 km दूर",
     image: "https://images.unsplash.com/photo-1582284540020-8acbe03f4924?auto=format&fit=crop&q=80&w=300&h=300",
     tag: "Non-GMO",
     tagColor: "bg-farm-orange/80 text-white"
   },
   {
     id: 3,
-    name: "Fresh Carrots",
-    price: 2.99,
+    name: "Taza Gajar (Carrots)",
+    price: 35, // ₹35 per bunch
     unit: "bunch",
     farmerName: "Hillside Farms",
-    location: "3.7 miles away",
+    location: "3.7 km दूर",
     image: "https://images.unsplash.com/photo-1582515073490-39981397c445?auto=format&fit=crop&q=80&w=300&h=300"
   },
   {
     id: 4,
-    name: "Red Bell Peppers",
-    price: 1.99,
+    name: "Lal Shimla Mirch (Red Capsicum)",
+    price: 50, // ₹50 per piece
     unit: "each",
     farmerName: "Morning Harvest",
-    location: "6.2 miles away",
+    location: "6.2 km दूर",
     image: "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&q=80&w=300&h=300"
   },
   {
     id: 5,
-    name: "Fresh Basil",
-    price: 2.50,
+    name: "Taza Tulsi Patta (Fresh Basil)",
+    price: 20, // ₹20 per bunch
     unit: "bunch",
     farmerName: "Green Valley Farm",
-    location: "2.4 miles away",
+    location: "2.4 km दूर",
     image: "https://images.unsplash.com/photo-1588692390148-cddc402353e6?auto=format&fit=crop&q=80&w=300&h=300",
     tag: "Fresh Cut",
     tagColor: "bg-farm-lime text-farm-green"
   },
   {
     id: 6,
-    name: "Sweet Corn",
-    price: 0.99,
-    unit: "ear",
+    name: "Mitha Bhutta (Sweet Corn)",
+    price: 15, // ₹15 per ear
+    unit: "each",
     farmerName: "Sunset Orchards",
-    location: "5.1 miles away",
+    location: "5.1 km दूर",
     image: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&q=80&w=300&h=300"
   }
 ];
+
+
 
 const FeaturedProducts = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
